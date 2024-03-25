@@ -7,21 +7,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Minha Lista de Tarefas</h1>
-    </header>
-    <section>
-        <div>
-            <input type="text" value="" name="txtt" id="txtt">
-            <input type="button" value="Adicionar" onclick="adcionar()">
-        </div>
-        <br><br> <ul name="flista" id="flista" type="null"></ul>
-           
-        
-        <div id="res">
+    <div class="container">
+        <header>
+            <h1>Minha Lista de Tarefas</h1>
+        </header>
+        <section>
+            <form>
+                <input type="search" id="task" placeholder="Tarefa"></input>
+                <input type="button" value="Adicionar" id="add" onclick="addtask()">
+            </form>
+                
+            
+            <div id="res">
+                <h2>Lista de Tarefas</h2>
+                <ul> </ul>
+            </div>
+        </section>
 
-        </div>
-    </section>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,25 +1,66 @@
-let tar = document.getElementById('txtt')
-let lista = document.getElementById('flista')
-let res = document.getElementById('res')
-let tarefas = []
+let task = document.querySelector('input#task')
+let tasklist = document.querySelector('ul')
+let res = document.querySelector('div#res')
 
-function adcionar(){
-    
-    if (tar.value.length == false){
-        window.alert('Por favor, digite uma tarefa!')
-    } else {
-        tarefas.push(tar.value)
-        let item = document.createElement('li')
-        item.innerHTML = `<input type="checkbox" name="" id=""> ${tar.value} <input type="button" value="Excluir" id="exctar" name="exctar" onclick="exclui_tarefa">`
-        lista.appendChild(item)
-        res.innerHTML = ' '
+function addtask(){
+    if (task.value.length <= 3){
+        window.alert('Quantidade de caractéres inválida. Digite mais de 3!')
+        return
     }
-    tar.value = ''
-    tar.focus()
+    
+    
+    let vtask = String(task.value)
+    let li = document.createElement('li')
+    let identity = vtask.replace(' ', '_')
+    
+    
+    let span = document.createElement('span')
+    span.innerHTML = vtask
+    span.setAttribute('id', 'litask' + identity)
+    
+    li.setAttribute('id', 'litask' + identity)
+    li.appendChild(span)
+    tasklist.appendChild(li)
+    li.innerText = `${vtask}`
+    
+    
+    let doneButton = document.createElement('button')
+    doneButton.setAttribute('id', 'btndone' + identity)
+    doneButton.innerText = 'Concluido'
+    doneButton.classList.add('btn')
+    doneButton.classList.add('btn-done', identity)
+    doneButton.setAttribute('data-identity', identity)
+    doneButton.addEventListener('click', doneClick)
+    
+    let trashButton = document.createElement('button')
+    trashButton.setAttribute('id', 'btndel' + identity)
+    trashButton.innerText = 'Remover'
+    trashButton.classList.add('btn')
+    trashButton.classList.add('btn-remove')
+    trashButton.setAttribute('data-identity', identity)
+    trashButton.addEventListener('click', deleteClick)
+
+    
+    let buttonContainer = document.createElement('div')
+    buttonContainer.appendChild(doneButton)
+    buttonContainer.appendChild(trashButton)
+    li.appendChild(buttonContainer)
+    
+
+
+    task.value = ''
+    task.focus()
+}    
+
+function doneClick(){
+    let identity = this.getAttribute('data-identity')
+    let text = document.querySelector(`#litask${identity}`)
+    text.classList.add('done')
+    this.remove()
 }
 
-function exclui_tarefa(){
-        let tarefa = document.getElementById('task')
-        
-
+function deleteClick(){
+    let identity = this.getAttribute('data-identity')
+    let li = document.querySelector (`#litask${identity}`)
+    li.remove()
 }
